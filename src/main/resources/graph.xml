@@ -1,0 +1,50 @@
+<graph>
+    <nodes>
+        <node id="1" name="Arlanda Flygplats"/>
+        <node id="2" name="Bromma Flygplats"/>
+        <node id="3" name="Sagerska Palatset"/>
+        <node id="4" name="Plenissalen"/>
+        <node id="5" name="Regeringskansliet"/>
+        <node id="6" name="LO-borgen"/>
+        <node id="7" name="Agendastudion på SVT"/>
+        <node id="8" name="DN-skrapan"/>
+        <node id="9" name="Drottningholms slott"/>
+    </nodes>
+    <edges>
+        <edge from="1" to="2" name="Fridolinjen Arlanda-Bromma" provider="1" time="10" cost="125000" environment="220000" />
+        <edge from="2" to="1" name="Fridolinjen Bromma-Arlanda" provider="1" time="10" cost="125000" environment="220000" />
+    </edges>
+    <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->
+    <providers>
+        <provider id="1">
+            <name>Fridolinjen</name>
+            <description>
+                Det effektiva alternativet för dig med stor plånbok men lite samvete och tid.
+                Flyg direkt mellan Stockholms knytpunkter - Arlanda Airport och Bromma Airport.
+            </description>
+            <cost>1</cost>
+            <time>-1</time>
+            <environment>1</environment>
+        </provider>
+        <provider id="2">
+            <name>Gång</name>
+            <description>
+                Det miljö- och hälsovänliga alternativet för dig med D-vitaminbrist och gott om tid.
+                En stärkande promenad kan ta sin tid, men ger en naturligt fräsch framtoning.
+            </description>
+            <cost>-1</cost>
+            <time>1</time>
+            <environment>-1</environment>
+        </provider>
+        <provider id="3">
+            <name>Taxi</name>
+            <description>
+                Känn dig som en riktigt viktig förvaltare med detta agila färdmedel.
+                Låt inte prisbilden avskräcka dig från tidseffektiv komfort. Garanterad etanolbil.
+            </description>
+            <cost>0</cost>
+            <time>0</time>
+            <environment>0</environment>
+        </provider>
+    </providers>
+</graph>
