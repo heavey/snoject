@@ -12,7 +12,7 @@ import java.util.Set;
 // TODO: Documentation
 public interface DataSource
 {
-    public void init();
+    public void init() throws Exception;
 
     public Set<Node> getNodes();
 
