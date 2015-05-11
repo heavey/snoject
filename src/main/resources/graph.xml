@@ -16,35 +16,23 @@
     </edges>
     <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->
     <providers>
-        <provider id="1">
-            <name>Fridolinjen</name>
+        <provider id="1" name="Fridolinjen" cost="1" time="-1" environment="1">
             <description>
                 Det effektiva alternativet för dig med stor plånbok men lite samvete och tid.
                 Flyg direkt mellan Stockholms knytpunkter - Arlanda Airport och Bromma Airport.
             </description>
-            <cost>1</cost>
-            <time>-1</time>
-            <environment>1</environment>
         </provider>
-        <provider id="2">
-            <name>Gång</name>
+        <provider id="2" name="Gång" cost="-1" time="1" environment="-1">
             <description>
                 Det miljö- och hälsovänliga alternativet för dig med D-vitaminbrist och gott om tid.
                 En stärkande promenad kan ta sin tid, men ger en naturligt fräsch framtoning.
             </description>
-            <cost>-1</cost>
-            <time>1</time>
-            <environment>-1</environment>
         </provider>
-        <provider id="3">
-            <name>Taxi</name>
+        <provider id="3" name="Taxi" cost="0" time="0" environment="0">
             <description>
                 Känn dig som en riktigt viktig förvaltare med detta agila färdmedel.
                 Låt inte prisbilden avskräcka dig från tidseffektiv komfort. Garanterad etanolbil.
             </description>
-            <cost>0</cost>
-            <time>0</time>
-            <environment>0</environment>
         </provider>
     </providers>
 </graph>

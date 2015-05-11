@@ -12,11 +12,11 @@ import java.util.Set;
 // TODO: Documentation
 public interface DataSource
 {
-    public void init() throws Exception;
+    void init() throws Exception;
 
-    public Set<Node> getNodes();
+    Set<Node> getNodes();
 
-    public Set<Edge> getEdges();
+    Set<Edge> getEdges();
 
-    public Set<Provider> getProviders();
+    Set<Provider> getProviders();
 }

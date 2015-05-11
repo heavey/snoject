@@ -1,12 +1,19 @@
 package se.kth.inda14.snoject;
 
+import se.kth.inda14.snoject.datasources.XMLDataSource;
+import se.kth.inda14.snoject.interfaces.DataSource;
+
 public class Bootstrap
 {
-    // Bootstrap variables:
+    /**
+     * Bootstrap variables
+      */
     // Set up dataSource
+    DataSource ds = new XMLDataSource();
+
     // Set up graphEngine
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         Bootstrap
             .newInstance()
@@ -20,15 +27,19 @@ public class Bootstrap
         return new Bootstrap();
     }
 
-    public Bootstrap bootDataSource()
+    public Bootstrap bootDataSource() throws Exception
     {
-        // TODO
+        ds.init();
+
         return this;
     }
 
     public Bootstrap buildGraph()
     {
-        // TODO
+        ds.getNodes();
+        ds.getEdges();
+        ds.getProviders();
+
         return this;
     }
 
