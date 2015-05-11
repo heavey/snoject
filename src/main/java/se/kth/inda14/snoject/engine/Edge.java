@@ -58,4 +58,18 @@ public class Edge
     {
         return environment;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Edge{" +
+                "from=" + from +
+                ", to=" + to +
+                ", name='" + name + '\'' +
+                ", provider=" + provider +
+                ", cost=" + cost +
+                ", time=" + time +
+                ", environment=" + environment +
+                '}';
+    }
 }

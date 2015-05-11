@@ -23,4 +23,13 @@ public class Node
     {
         return name;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Node{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
