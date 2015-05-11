@@ -56,4 +56,17 @@ public class Provider
     {
         return environment;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Provider{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", cost=" + cost +
+                ", time=" + time +
+                ", environment=" + environment +
+                '}';
+    }
 }

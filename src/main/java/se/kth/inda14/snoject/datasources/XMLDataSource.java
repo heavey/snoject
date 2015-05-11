@@ -77,6 +77,27 @@ public class XMLDataSource implements DataSource
 
     public Set<Provider> getProviders()
     {
-        return null;
+        Set<Provider> res = new HashSet<Provider>();
+        NodeList nodes = doc.getElementsByTagName("provider");
+
+        for (int i = 0; i < nodes.getLength(); i++)
+        {
+            Element e = (Element) nodes.item(i);
+
+            int id = Integer.parseInt(e.getAttribute("id"));
+
+            String name = e.getAttribute("name");
+            String description = e.getElementsByTagName("description").item(0).getTextContent().trim();
+
+            int time = Integer.parseInt(e.getAttribute("time"));
+            int cost = Integer.parseInt(e.getAttribute("cost"));
+            int environment = Integer.parseInt(e.getAttribute("environment"));
+
+            Provider p = new Provider(id, name, description, cost, time, environment);
+            res.add(p);
+            System.out.println(p);
+        }
+
+        return res;
     }
 }
