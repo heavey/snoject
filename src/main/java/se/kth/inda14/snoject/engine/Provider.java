@@ -1,16 +1,32 @@
 package se.kth.inda14.snoject.engine;
 
-// TODO: Documentation
+/**
+ * Represents a Provider in the Graph space, which is not
+ * a Graph building block, but is used by Edge objects to
+ * provide additional information on a given provider for
+ * the link between two nodes.
+ *
+ * Providers are immutable objects.
+ */
 public class Provider
 {
+    // Provider core data
     private int id;
     private String name;
 
+    // Provider properties
     private String description;
     private int cost;
     private int time;
     private int environment;
 
+    /**
+     * Create a Provider object with given properties.
+     *
+     * Cost, time and environment properties range from -1 (low), 0 (medium) to 1 (high).
+     *
+     * @throws IllegalArgumentException if cost, time or environment are out of bounds.
+     */
     public Provider(int id, String name, String description, int cost, int time, int environment)
     {
         if (cost < -1 || time < -1 || environment < -1)
@@ -27,46 +43,19 @@ public class Provider
         this.environment = environment;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public int getCost()
-    {
-        return cost;
-    }
-
-    public int getTime()
-    {
-        return time;
-    }
-
-    public int getEnvironment()
-    {
-        return environment;
-    }
+    // Getters
+    public int getId()              { return id; }
+    public String getName()         { return name; }
+    public String getDescription()  { return description; }
+    public int getCost()            { return cost; }
+    public int getTime()            { return time; }
+    public int getEnvironment()     { return environment; }
 
     @Override
     public String toString()
     {
-        return "Provider{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", cost=" + cost +
-                ", time=" + time +
-                ", environment=" + environment +
-                '}';
+        return String.format(
+                "Provider{id=%d, name=%s, description=%s, cost=%d, time=%d, environment=%d}",
+                id, name, description, cost, time, environment);
     }
 }

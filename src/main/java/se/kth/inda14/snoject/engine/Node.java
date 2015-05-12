@@ -9,6 +9,7 @@ package se.kth.inda14.snoject.engine;
  */
 public class Node
 {
+    // Node core data
     private final int id;
     private final String name;
 
@@ -21,8 +22,9 @@ public class Node
         this.name = name;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
+    // Getters
+    public int getId()          { return id; }
+    public String getName()     { return name; }
 
     @Override
     public String toString()
