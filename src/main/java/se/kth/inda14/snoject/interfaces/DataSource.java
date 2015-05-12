@@ -4,6 +4,7 @@ import se.kth.inda14.snoject.engine.Edge;
 import se.kth.inda14.snoject.engine.Node;
 import se.kth.inda14.snoject.engine.Provider;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,9 +15,9 @@ public interface DataSource
 {
     void init() throws Exception;
 
-    Set<Node> getNodes();
+    Map<Integer, Node> getNodes();
 
     Set<Edge> getEdges();
 
-    Set<Provider> getProviders();
+    Map<Integer, Provider> getProviders();
 }

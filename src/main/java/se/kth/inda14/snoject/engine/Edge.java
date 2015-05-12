@@ -3,17 +3,17 @@ package se.kth.inda14.snoject.engine;
 // TODO: Documentation
 public class Edge
 {
-    private final int from;
-    private final int to;
+    private final Node from;
+    private final Node to;
 
     private final String name;
-    private final int provider;
+    private final Provider provider;
 
     private final int cost;
     private final int time;
     private final int environment;
 
-    public Edge(int from, int to, String name, int provider, int cost, int time, int environment)
+    public Edge(Node from, Node to, String name, Provider provider, int cost, int time, int environment)
     {
         this.from = from;
         this.to = to;
@@ -24,12 +24,12 @@ public class Edge
         this.environment = environment;
     }
 
-    public int getFrom()
+    public Node getFrom()
     {
         return from;
     }
 
-    public int getTo()
+    public Node getTo()
     {
         return to;
     }
@@ -39,7 +39,7 @@ public class Edge
         return name;
     }
 
-    public int getProvider()
+    public Provider getProvider()
     {
         return provider;
     }
