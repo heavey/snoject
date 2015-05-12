@@ -6,6 +6,10 @@ import se.kth.inda14.snoject.interfaces.Graph;
 
 import java.util.*;
 
+/**
+ * Represents an implementation of the Graph interface, by
+ * placing Nodes and Edges into HashMaps.
+ */
 public class HashGraph implements Graph
 {
     private final Map<Node, Map<Node, Set<Edge>>> edges = new HashMap<>();
@@ -43,6 +47,7 @@ public class HashGraph implements Graph
      */
     public Iterator<Node> neighbors(Node n)
     {
+        // Return empty iterator if no Map exists
         if (edges.get(n) == null)
             return new Iterator<Node>()
             {
@@ -62,13 +67,18 @@ public class HashGraph implements Graph
         return edges.get(n).keySet().iterator();
     }
 
+    /**
+     * {@inheritDoc Graph}
+     */
     public boolean hasEdge(Node from, Node to)
     {
+        // Perform null checks
         if (from == null || to == null)
             return false;
 
         Map<Node, Set<Edge>> links = edges.get(from);
 
+        // If no HashMap exists, no edges exist
         if (links == null)
             return false;
 
@@ -80,13 +90,18 @@ public class HashGraph implements Graph
         return false;
     }
 
+    /**
+     * {@inheritDoc Graph}
+     */
     public Set<Edge> cost(Node from, Node to)
     {
+        // Perform null checks
         if (from == null || to == null)
             return null;
 
         Map<Node, Set<Edge>> links = edges.get(from);
 
+        // If no HashMap exists, return null
         if (links == null)
             return null;
 
@@ -97,8 +112,12 @@ public class HashGraph implements Graph
         return null;
     }
 
+    /**
+     * {@inheritDoc Graph}
+     */
     public void add(Edge edge)
     {
+        // Perform null checks
         if (edge == null)
             return;
 
