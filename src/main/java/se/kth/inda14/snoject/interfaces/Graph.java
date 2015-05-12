@@ -70,12 +70,4 @@ public interface Graph
      * @throws          IllegalArgumentException if from or to are out of range
      */
     void add(Edge edge);
-
-    /**
-     * Removes the edge.
-     *
-     * @param edge      Edge object to remove
-     * @throws          IllegalArgumentException if from or to are out of range
-     */
-    void remove(Edge edge);
 }

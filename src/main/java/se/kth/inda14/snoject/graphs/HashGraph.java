@@ -41,7 +41,7 @@ public class HashGraph implements Graph
     /**
      * {@inheritDoc Graph}
      */
-    public Iterator<Node> neighbors(Node n) throws IllegalArgumentException
+    public Iterator<Node> neighbors(Node n)
     {
         if (edges.get(n) == null)
             return new Iterator<Node>()
@@ -62,7 +62,7 @@ public class HashGraph implements Graph
         return edges.get(n).keySet().iterator();
     }
 
-    public boolean hasEdge(Node from, Node to) throws IllegalArgumentException
+    public boolean hasEdge(Node from, Node to)
     {
         if (from == null || to == null)
             return false;
@@ -121,21 +121,5 @@ public class HashGraph implements Graph
         // Add the edge
         edgeSet.add(edge);
         numEdges++;
-    }
-
-    public void remove(Edge edge)
-    {
-        Node from = edge.getFrom();
-        Node to = edge.getTo();
-
-        Map<Node, Set<Edge>> links = edges.get(from);
-
-        // If no such link exists, it cannot be removed
-        if (links == null)
-            return;
-
-        // If a Set exists, remove the specified Edge from it
-        if (links.get(to) != null)
-            links.get(to).remove(edge);
     }
 }
