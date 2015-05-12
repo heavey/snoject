@@ -8,6 +8,7 @@ import se.kth.inda14.snoject.graphs.HashGraph;
 import se.kth.inda14.snoject.interfaces.DataSource;
 import se.kth.inda14.snoject.interfaces.Graph;
 
+import java.util.Map;
 import java.util.Set;
 
 public class Bootstrap
@@ -44,9 +45,9 @@ public class Bootstrap
 
     public Bootstrap buildGraph()
     {
-        Set<Node> nodes = ds.getNodes();
+        Map<Integer, Node> nodes = ds.getNodes();
         Set<Edge> edges = ds.getEdges();
-        Set<Provider> providers = ds.getProviders();
+        Map<Integer, Provider> providers = ds.getProviders();
 
         return this;
     }
