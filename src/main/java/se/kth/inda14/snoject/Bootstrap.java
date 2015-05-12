@@ -1,7 +1,14 @@
 package se.kth.inda14.snoject;
 
 import se.kth.inda14.snoject.datasources.XMLDataSource;
+import se.kth.inda14.snoject.engine.Edge;
+import se.kth.inda14.snoject.engine.Node;
+import se.kth.inda14.snoject.engine.Provider;
+import se.kth.inda14.snoject.graphs.HashGraph;
 import se.kth.inda14.snoject.interfaces.DataSource;
+import se.kth.inda14.snoject.interfaces.Graph;
+
+import java.util.Set;
 
 public class Bootstrap
 {
@@ -12,6 +19,7 @@ public class Bootstrap
     DataSource ds = new XMLDataSource();
 
     // Set up graphEngine
+    Graph g = new HashGraph();
 
     public static void main(String[] args) throws Exception
     {
@@ -36,9 +44,9 @@ public class Bootstrap
 
     public Bootstrap buildGraph()
     {
-        ds.getNodes();
-        ds.getEdges();
-        ds.getProviders();
+        Set<Node> nodes = ds.getNodes();
+        Set<Edge> edges = ds.getEdges();
+        Set<Provider> providers = ds.getProviders();
 
         return this;
     }
