@@ -1,7 +1,6 @@
 package se.kth.inda14.snoject.interfaces;
 
 import se.kth.inda14.snoject.engine.Node;
-import se.kth.inda14.snoject.interfaces.Graph;
 
 /**
  * This interface contains a single act method intended to be called during a
