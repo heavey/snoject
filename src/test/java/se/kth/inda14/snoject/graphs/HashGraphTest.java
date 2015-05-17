@@ -25,7 +25,7 @@ public class HashGraphTest
     {
         graph = new HashGraph();
 
-        Provider fridolinjen = new Provider(1, "Fridolinjen", "Beprövad av utbildningsministern", 1, -1, 1);
+        Provider fridolinjen = new Provider(1, "Fridolinjen", "Beprï¿½vad av utbildningsministern", 1, -1, 1);
 
         edges = new Edge[]{
                 new Edge(arlanda, bromma, "Fridolinjen Arlanda-Bromma", fridolinjen, 125000, 10, 220000),
@@ -89,14 +89,14 @@ public class HashGraphTest
     }
 
     @Test
-    public void testHasEdge() throws Exception
+    public void testGetEdges() throws Exception
     {
         // Test empty Graph
-        assertFalse(graph.hasEdge(arlanda, bromma));
+        assertNull(graph.getEdges(arlanda, bromma));
 
         // Test populated Graph
         graph.add(edges[0]);
-        assertTrue(graph.hasEdge(arlanda, bromma));
+        assertNotNull(graph.getEdges(arlanda, bromma));
     }
 
     @Test
@@ -120,6 +120,6 @@ public class HashGraphTest
 
         // Test populated Graph
         graph.add(edges[0]);
-        assertTrue(graph.hasEdge(arlanda, bromma));
+        assertNotNull(graph.getEdges(arlanda, bromma));
     }
 }

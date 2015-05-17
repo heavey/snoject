@@ -70,24 +70,24 @@ public class HashGraph implements Graph
     /**
      * {@inheritDoc Graph}
      */
-    public boolean hasEdge(Node from, Node to)
+    public Set<Edge> getEdges(Node from, Node to)
     {
         // Perform null checks
         if (from == null || to == null)
-            return false;
+            return null;
 
         Map<Node, Set<Edge>> links = edges.get(from);
 
         // If no HashMap exists, no edges exist
         if (links == null)
-            return false;
+            return null;
 
-        // If a Set exists and is not empty, the Graph has an Edge at this point
+        // If a Set exists and is not empty, the Graph has Edges between these points
         if (links.get(to) != null)
             if (!links.get(to).isEmpty())
-                return true;
+                return links.get(to);
 
-        return false;
+        return null;
     }
 
     /**
