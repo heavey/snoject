@@ -2,11 +2,18 @@ package se.kth.inda14.snoject;
 
 import se.kth.inda14.snoject.datasources.XMLDataSource;
 import se.kth.inda14.snoject.engine.Edge;
+import se.kth.inda14.snoject.engine.GraphSearch;
+import se.kth.inda14.snoject.engine.Node;
 import se.kth.inda14.snoject.graphs.HashGraph;
 import se.kth.inda14.snoject.interfaces.DataSource;
 import se.kth.inda14.snoject.interfaces.Graph;
 
+import java.util.Map;
 import java.util.Set;
+
+import static se.kth.inda14.snoject.engine.JSONUtil.json;
+import static spark.Spark.after;
+import static spark.Spark.get;
 
 public class Bootstrap
 {
@@ -18,8 +25,10 @@ public class Bootstrap
 
     // Set up graphEngine
     Graph g = new HashGraph();
+	private Set<Edge> edges;
+	private Map<Integer, Node> nodes;
 
-    public static void main(String[] args) throws Exception
+	public static void main(String[] args) throws Exception
     {
         Bootstrap
             .newInstance()
@@ -42,16 +51,40 @@ public class Bootstrap
 
     public Bootstrap buildGraph()
     {
-        Set<Edge> edges = ds.getEdges();
+        // Retrieving all Edge objects will automatically retrieve all Nodes and Providers
+		edges = ds.getEdges();
         edges.forEach(g::add);
 
-        return this;
+		// Retrieve Nodes from DS cache for auto complete
+		nodes = ds.getNodes();
+
+		return this;
     }
 
     public Bootstrap startServer()
     {
-        // TODO
+		GraphSearch gs = new GraphSearch();
+
+		get("/nodes/", (request, response) -> "");
+
+		get("/nodes/:name", (request, response) -> {
+			String input = request.params(":name");
+
+			return gs.getNodesByName(nodes, input);
+		}, json());
+
+		get("/route/:from/:to", ((request, response) -> {
+			// Algorithms
+			return "";
+		}));
+
+		get("/route/:from/:to/:priority", ((request, response) -> {
+
+			return "";
+		}));
+
+        after(((req, res) -> res.type("application/json;charset=utf8")));
+
         return this;
     }
-
 }
