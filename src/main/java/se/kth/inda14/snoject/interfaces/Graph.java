@@ -45,13 +45,13 @@ public interface Graph
     Iterator<Node> neighbors(Node n);
 
     /**
-     * Returns true if there is an edge between from and to.
+     * Returns the Edge set between from and to, or null if no edges exist.
      *
      * @param from      node
      * @param to        node
-     * @return          true if there is an edge between from and to.
+     * @return          Set of all Edge objects between from and to
      */
-    boolean hasEdge(Node from, Node to);
+    Set<Edge> getEdges(Node from, Node to);
 
     /**
      * Returns the edge cost if n and m are adjacent and an edge cost has been
