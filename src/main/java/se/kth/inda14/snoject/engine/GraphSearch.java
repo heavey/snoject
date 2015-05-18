@@ -12,19 +12,6 @@ import java.util.stream.Collectors;
  */
 public class GraphSearch
 {
-	/**
-	 * Package local class to keep track of a vertex, and a previously visited vertex
-	 */
-	private class GraphPath
-	{
-		public Node current, previous;
-
-		public GraphPath(Node current, Node previous)
-		{
-			this.current = current;
-			this.previous = previous;
-		}
-	}
 
 	/**
 	 * Private instance variable which holds the route between nodes with the least
@@ -44,8 +31,9 @@ public class GraphSearch
 				.collect(Collectors.toSet());
 	}
 
-	public List<Edge> getRoute(Graph g, Map<Integer, Node> nodes, String fromString,
-							   String toString, Priority priority) throws NumberFormatException
+	public List<Edge> getRoute(Graph g, Map<Integer, Node> nodes,
+							   String fromString, String toString, Priority priority)
+			throws IllegalArgumentException, RouteNotFoundException
 	{
 		// Parse input
 		int fromID = Integer.parseInt(fromString);
@@ -62,10 +50,16 @@ public class GraphSearch
 
 		// Make sure Nodes exist
 		if (from == null || to == null)
-			return null;
+			throw new IllegalArgumentException("StationsNotInDataStore");
+
+		if (from == to)
+			throw new IllegalArgumentException("MustChooseRoute");
 
 		// Perform BFS
 		List<Node> routeNodes = getRouteNodes(g, from, to);
+
+		if (routeNodes == null)
+			throw new RouteNotFoundException("RouteNotFound");
 
 		for (Node n : routeNodes)
 		{
@@ -77,12 +71,7 @@ public class GraphSearch
 			}
 
 			Set<Edge> edges = g.getEdges(previous, n);
-
-			if (edges == null)
-				return null;
-
-			Edge edge = getCheapestEdge(edges, priority);
-			route.add(edge);
+			route.add(getCheapestEdge(edges, priority));
 
 			previous = n;
 		}
@@ -92,11 +81,17 @@ public class GraphSearch
 
 	private Edge getCheapestEdge(Set<Edge> edges, Priority priority)
 	{
+		// Make sure Edges exist
+		if (edges == null)
+			return null;
+
 		Iterator<Edge> it = edges.iterator();
 
+		// Set up a starting point
 		Edge leastEdge = null;
 		int leastCost = Integer.MAX_VALUE;
 
+		// Iterate to find lowest cost
 		while (it.hasNext())
 		{
 			int edgeCost;
@@ -114,9 +109,10 @@ public class GraphSearch
 					edgeCost = edge.getEnvironment();
 					break;
 				default:
-					throw new IllegalArgumentException("Priority is null");
+					return null;
 			}
 
+			// Upon finding cheaper Edge, update current values
 			if (edgeCost < leastCost)
 			{
 				leastCost = edgeCost;
@@ -129,10 +125,13 @@ public class GraphSearch
 
 	private List<Node> getRouteNodes(Graph g, Node from, Node to)
 	{
+		// Create a new Map for all possible routes
+		// Fill it with from Node and empty previous route
 		Map<Node, List<Node>> paths = new HashMap<>();
-		// ArrayList[] paths = new ArrayList[g.numNodes()];
 		paths.put(from, new ArrayList<>());
+		path = null;
 
+		// Perform BFS
 		bfs(g, from, (graph, current, previous) -> {
 
 			List<Node> previousPath = paths.get(previous);
@@ -140,16 +139,14 @@ public class GraphSearch
 			if (previousPath == null)
 				previousPath = new ArrayList<>();
 
+			// Build on top of the previous path,
+			// to avoid displaying all Nodes visited in search
 			previousPath.add(current);
-
 			paths.put(current, previousPath);
-			// paths[current.getId()] = new ArrayList(paths[previous.getId()]);
-			// paths[current.getId()].add(current);
 
-			// If a path is found, report it and exit the program
-			if (current == to) {
+			// If a path is found, report it
+			if (current == to)
 				path = paths.get(current);
-			}
 		});
 
 		return path;
@@ -190,6 +187,20 @@ public class GraphSearch
 					q.add(new GraphPath(i, n.current));
 				}
 			}
+		}
+	}
+
+	/**
+	 * Package local class to keep track of a vertex, and a previously visited vertex
+	 */
+	private class GraphPath
+	{
+		public Node current, previous;
+
+		public GraphPath(Node current, Node previous)
+		{
+			this.current = current;
+			this.previous = previous;
 		}
 	}
 }
