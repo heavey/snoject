@@ -13,12 +13,16 @@
     <edges>
         <edge from="1" to="2" name="Fridolinjen Arlanda-Bromma" provider="1" time="10" cost="125000" environment="220000" />
         <edge from="2" to="1" name="Fridolinjen Bromma-Arlanda" provider="1" time="10" cost="125000" environment="220000" />
+        <edge from="2" to="3" name="Taxi 020 Bromma-Sagerska" provider="3" time="35" cost="500" environment="400" />
+        <edge from="2" to="5" name="Taxi 020 Bromma-Regeringen" provider="3" time="40" cost="550" environment="425" />
+        <edge from="3" to="5" name="Promenad till kansliet" provider="2" time="15" cost="0" environment="0" />
+        <edge from="3" to="4" name="Promenad i innerstan" provider="2" time="15" cost="0" environment="0" />
     </edges>
     <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->
     <providers>
         <provider id="1" name="Fridolinjen" cost="1" time="-1" environment="1">
             <description>
-                Det effektiva alternativet för dig med stor plånbok men lite samvete och tid.
+                Det effektiva alternativet för dig med stor plånbok men mindre samvete och tid.
                 Flyg direkt mellan Stockholms knytpunkter - Arlanda Airport och Bromma Airport.
             </description>
         </provider>
