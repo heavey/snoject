@@ -44,6 +44,89 @@ public class GraphSearch
 				.collect(Collectors.toSet());
 	}
 
+	public List<Edge> getRoute(Graph g, Map<Integer, Node> nodes, String fromString,
+							   String toString, Priority priority) throws NumberFormatException
+	{
+		// Parse input
+		int fromID = Integer.parseInt(fromString);
+		int toID = Integer.parseInt(toString);
+
+		// Retrieve Node references
+		Node from = nodes.get(fromID);
+		Node to = nodes.get(toID);
+
+		// Set up List for route and previous Node
+		List<Edge> route = new ArrayList<>();
+		Node previous = null;
+		boolean firstRun = true;
+
+		// Make sure Nodes exist
+		if (from == null || to == null)
+			return null;
+
+		// Perform BFS
+		List<Node> routeNodes = getRouteNodes(g, from, to);
+
+		for (Node n : routeNodes)
+		{
+			if (firstRun)
+			{
+				firstRun = false;
+				previous = n;
+				continue;
+			}
+
+			Set<Edge> edges = g.getEdges(previous, n);
+
+			if (edges == null)
+				return null;
+
+			Edge edge = getCheapestEdge(edges, priority);
+			route.add(edge);
+
+			previous = n;
+		}
+
+		return route;
+	}
+
+	private Edge getCheapestEdge(Set<Edge> edges, Priority priority)
+	{
+		Iterator<Edge> it = edges.iterator();
+
+		Edge leastEdge = null;
+		int leastCost = Integer.MAX_VALUE;
+
+		while (it.hasNext())
+		{
+			int edgeCost;
+			Edge edge = it.next();
+
+			switch (priority)
+			{
+				case COST:
+					edgeCost = edge.getCost();
+					break;
+				case TIME:
+					edgeCost = edge.getTime();
+					break;
+				case ENVIRONMENT:
+					edgeCost = edge.getEnvironment();
+					break;
+				default:
+					throw new IllegalArgumentException("Priority is null");
+			}
+
+			if (edgeCost < leastCost)
+			{
+				leastCost = edgeCost;
+				leastEdge = edge;
+			}
+		}
+
+		return leastEdge;
+	}
+
 	private List<Node> getRouteNodes(Graph g, Node from, Node to)
 	{
 		Map<Node, List<Node>> paths = new HashMap<>();
@@ -83,9 +166,9 @@ public class GraphSearch
 	{
 		// Use a Queue for BFS
 		Queue<GraphPath> q = new LinkedList<>();
-		Map<Node, Boolean> visited = new HashMap<>();
+		Set<Node> visited = new HashSet<>();
 
-		visited.put(v, true);
+		visited.add(v);
 		q.add(new GraphPath(v, v));
 
 		while(!q.isEmpty())
@@ -101,9 +184,9 @@ public class GraphSearch
 				Node i = it.next();
 
 				// If the Vertex is not visited, visit and add it to queue
-				if (!visited.get(i))
+				if (!visited.contains(i))
 				{
-					visited.put(i, true);
+					visited.add(i);
 					q.add(new GraphPath(i, n.current));
 				}
 			}

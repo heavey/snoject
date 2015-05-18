@@ -3,6 +3,7 @@ package se.kth.inda14.snoject;
 import se.kth.inda14.snoject.datasources.XMLDataSource;
 import se.kth.inda14.snoject.engine.Edge;
 import se.kth.inda14.snoject.engine.GraphSearch;
+import se.kth.inda14.snoject.engine.GraphSearch.Priority;
 import se.kth.inda14.snoject.engine.Node;
 import se.kth.inda14.snoject.graphs.HashGraph;
 import se.kth.inda14.snoject.interfaces.DataSource;
@@ -65,23 +66,19 @@ public class Bootstrap
     {
 		GraphSearch gs = new GraphSearch();
 
-		get("/nodes/", (request, response) -> "");
+		get("/nodes/", (req, res) ->
+				"{}");
 
-		get("/nodes/:name", (request, response) -> {
-			String input = request.params(":name");
+		get("/nodes/:name", (req, res) ->
+				gs.getNodesByName(nodes, req.params(":name")), json());
 
-			return gs.getNodesByName(nodes, input);
-		}, json());
-
-		get("/route/:from/:to", ((request, response) -> {
-			// Algorithms
-			return "";
-		}));
+		get("/route/:from/:to", ((req, res) ->
+				gs.getRoute(g, nodes, req.params(":from"), req.params(":to"), Priority.COST)), json());
 
 		get("/route/:from/:to/:priority", ((request, response) -> {
 
 			return "";
-		}));
+		}), json());
 
         after(((req, res) -> res.type("application/json;charset=utf8")));
 
