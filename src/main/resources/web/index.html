@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/ngProgress.css" />
+
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-route.js"></script>
+    <script src="assets/js/angular-resource.js"></script>
+    <script src="assets/js/angular-animate.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<div id="application">
+
+    <div id="container">
+
+        <div id="container-header" ng-animate-children>
+            <header id="header" ng-controller="HeaderController">
+                <div id="header-inner">
+                    <div id="header-middle">
+                        <div id="header-middle-inner">
+                            <div id="logo">
+                                <div class="contain-logo">
+                                    <h1><a href="/">{{ site.name }}</a></h1>
+                                </div>
+                            </div>
+                            <div class="contain-header">
+                                <h2>{{ site.bigTag }}</h2>
+                                <br />
+                                <h3>{{ site.smallTag }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="header-bottom"><span></span></div>
+                </div>
+            </header>
+
+            <nav ng-controller="NavigationController">
+                <div class="contain-nav">
+                    <div class="nav-inner">
+                        <ul id="mobile-nav">
+                            <li><a href="#" ng-click="toggleMobileNav()"></a></li>
+                        </ul>
+                        <ul id="desktop-nav">
+                            <li ng-repeat="menuitem in menu" ng-class="{active: isActive('/{{ menuitem.slug }}')}">
+                                <a data-hover="{{ menuitem.name }}" ng-class="{active: isActive('/{{ menuitem.slug }}')}" ng-href="/{{ menuitem.slug }}">
+                                    {{ menuitem.name }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div id="mobile-nav-container" ng-show="mobileNav">
+                    <ul>
+                        <li ng-repeat="menuitem in menu" ng-class="{active: isActive('/{{ menuitem.slug }}')}">
+                            <a ng-click="hideMobileNav()" data-hover="{{ menuitem.name }}" ng-class="{active: isActive('/{{ menuitem.slug }}')}" ng-href="/{{ menuitem.slug }}">
+                                {{ menuitem.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="clear"></div>
+
+        <div ng-animate-children>
+            <div ng-view class="view-animate"></div>
+        </div>
+
+        <div class="clear"></div>
+
+        <footer ng-controller="HeaderController">
+            <div class="contain">
+                {{ site.footer }}
+            </div>
+        </footer>
+
+    </div>
+
+</div>
+
+</body>
+</html>
