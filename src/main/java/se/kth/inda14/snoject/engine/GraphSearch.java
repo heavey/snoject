@@ -12,13 +12,15 @@ import java.util.stream.Collectors;
  */
 public class GraphSearch
 {
-
 	/**
 	 * Private instance variable which holds the route between nodes with the least
 	 * amount of routes taken.
 	 */
 	private List<Node> path;
 
+	/**
+	 * Priority enum, used to check
+	 */
 	public enum Priority { COST, TIME, ENVIRONMENT }
 
 	public Set<Node> getNodesByName(Map<Integer, Node> nodes, String startsWith)
@@ -141,8 +143,10 @@ public class GraphSearch
 
 			// Build on top of the previous path,
 			// to avoid displaying all Nodes visited in search
-			previousPath.add(current);
-			paths.put(current, previousPath);
+			List<Node> newPath = new ArrayList<>(previousPath);
+			newPath.add(current);
+
+			paths.put(current, newPath);
 
 			// If a path is found, report it
 			if (current == to)
