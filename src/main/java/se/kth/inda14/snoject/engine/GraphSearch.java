@@ -33,7 +33,20 @@ public class GraphSearch
 				.collect(Collectors.toSet());
 	}
 
-	public List<Edge> getRoute(Graph g, Map<Integer, Node> nodes,
+	public Map<Priority, List<Edge>> getRoutes(Graph g, Map<Integer, Node> nodes,
+											   String fromString, String toString)
+			throws IllegalArgumentException, RouteNotFoundException
+	{
+		Map<Priority, List<Edge>> routes = new HashMap<>();
+
+		routes.put(Priority.COST, getRoute(g, nodes, fromString, toString, Priority.COST));
+		routes.put(Priority.TIME, getRoute(g, nodes, fromString, toString, Priority.TIME));
+		routes.put(Priority.ENVIRONMENT, getRoute(g, nodes, fromString, toString, Priority.ENVIRONMENT));
+
+		return routes;
+	}
+
+	private List<Edge> getRoute(Graph g, Map<Integer, Node> nodes,
 							   String fromString, String toString, Priority priority)
 			throws IllegalArgumentException, RouteNotFoundException
 	{
@@ -195,7 +208,7 @@ public class GraphSearch
 	}
 
 	/**
-	 * Package local class to keep track of a vertex, and a previously visited vertex
+	 * Package local class to keep track of a Node, and a previously visited Node
 	 */
 	private class GraphPath
 	{
