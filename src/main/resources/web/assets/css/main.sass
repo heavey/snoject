@@ -61,6 +61,39 @@ a
   h2
     color: #690000
 
+.tabs
+  margin: 0
+  padding: 0
+  list-style-type: none
+
+  li
+    float: left
+    width: 33%
+    text-align: center
+    a
+      display: block
+      padding: 10px 0
+      text-decoration: none
+      font-weight: 600
+      span
+        display: block
+        text-align: center
+        font-size: 30px
+        line-height: 150%
+
+  li.active a
+    background: rgba(255, 255, 255, .65)
+
+.route
+  padding: 10px
+  background: rgba(255, 255, 255, .65)
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .1)
+
+  ul
+    margin: 0
+    padding: 0
+    list-style-type: none
+
 .ng-enter, .ng-hide-remove
   transition: all 1s
   height: 0 !important

@@ -16,6 +16,7 @@
         <edge from="2" to="3" name="Taxi 020 Bromma-Sagerska" provider="3" time="35" cost="500" environment="400" />
         <edge from="2" to="5" name="Taxi 020 Bromma-Regeringen" provider="3" time="40" cost="550" environment="425" />
         <edge from="3" to="5" name="Promenad till kansliet" provider="2" time="15" cost="0" environment="0" />
+        <edge from="3" to="5" name="Taxi 020 Sagerska-Kansliet" provider="3" time="5" cost="150" environment="50" />
         <edge from="3" to="4" name="Promenad i innerstan" provider="2" time="15" cost="0" environment="0" />
     </edges>
     <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->

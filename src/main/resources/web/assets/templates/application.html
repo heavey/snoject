@@ -66,7 +66,76 @@
         <hr />
 
         <div ng-show="resultsAvailable">
-            {{ results }}
+            <ul class="tabs">
+                <li ng-class="{active: showRouteType == 'TIME'}">
+                    <a href="#" ng-click="showRouteType = 'TIME';">
+                        <span class="glyphicon glyphicon-time"></span> Snabbast resa
+                    </a>
+                </li>
+                <li ng-class="{active: showRouteType == 'COST'}">
+                    <a href="#" ng-click="showRouteType = 'COST';">
+                        <span class="glyphicon glyphicon-usd"></span> Lägst kostnad
+                    </a>
+                </li>
+                <li ng-class="{active: showRouteType == 'ENVIRONMENT'}">
+                    <a href="#" ng-click="showRouteType = 'ENVIRONMENT';">
+                        <span class="glyphicon glyphicon-leaf"></span> Bästa miljöval
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+            <div ng-repeat="(routeType, routeData) in results.response">
+                <div ng-show="showRouteType == routeType" class="route">
+                    <ul>
+                        <li ng-repeat="item in routeData">
+                            <div class="instructions">
+                                <p class="from">Från {{ item.from.name }}:</p>
+                                <p class="to">
+                                    Ta <strong>{{ item.name }}</strong> till <strong>{{ item.to.name }}</strong>
+                                </p>
+                            </div>
+                            <div class="meta">
+                                <ul>
+                                    <li>
+                                        <span class="glyphicon glyphicon-time"></span>
+                                        {{ item.time }} min
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-usd"></span>
+                                        {{ item.cost }} SEK
+                                    </li>
+                                    <li>
+                                        <span class="glyphicon glyphicon-leaf"></span>
+                                        {{ item.environment }} g CO<sub>2</sub>
+                                    </li>
+                                    <li class="clear"></li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="provider">
+                                <div class="provider-body">
+                                    <p class="provider-name">Om {{ item.provider.name }}:</p>
+                                    <p class="provider-description">{{ item.provider.description }}</p>
+                                </div>
+                                <div class="provider-meta">
+                                    <p>
+                                        <span>Tidsåtgång:</span>
+                                        <strong ng-bind="getCostString(item.provider.time)"></strong>
+                                    </p>
+                                    <p>
+                                        <span>Kostnad:</span>
+                                        <strong ng-bind="getCostString(item.provider.cost)"></strong>
+                                    </p>
+                                    <p>
+                                        <span>Miljöpåverkan:</span>
+                                        <strong ng-bind="getCostString(item.provider.environment)"></strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div id="error" class="align-center" ng-show="errorAvailable">

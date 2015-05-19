@@ -67,4 +67,13 @@ app.controller 'ApplicationController', ['$scope', '$http', 'ngProgress', ($scop
 
 			ngProgress.complete()
 		)
+
+	$scope.getCostString = (cost) ->
+		switch cost
+			when -1 then return "Låg"
+			when 0 then return "Medelhög"
+			when 1 then return "Mycket hög"
+
+	# Default views
+	$scope.showRouteType = 'TIME'
 ]

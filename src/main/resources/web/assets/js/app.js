@@ -40,7 +40,7 @@
         $scope.to = item.id;
         return $scope.toStation = item.name;
       };
-      return $scope.performSearch = function() {
+      $scope.performSearch = function() {
         if (($scope.from == null) || ($scope.to == null)) {
           alert('Du måste specificera både start- och slutdestination.');
           return;
@@ -73,6 +73,17 @@
           return ngProgress.complete();
         });
       };
+      $scope.getCostString = function(cost) {
+        switch (cost) {
+          case -1:
+            return "Låg";
+          case 0:
+            return "Medelhög";
+          case 1:
+            return "Mycket hög";
+        }
+      };
+      return $scope.showRouteType = 'TIME';
     }
   ]);
 
