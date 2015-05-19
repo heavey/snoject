@@ -2,33 +2,36 @@
 (function() {
   var app;
 
-  app = angular.module('AECM', ['ngRoute', 'ngResource', 'ngProgress', 'ngAnimate']);
+  app = angular.module('RoutePlanner', ['ngResource', 'ngProgress', 'ngAnimate']);
 
   app.base = "/assets/templates/";
 
   app.api = "/api/";
 
-  app.config([
-    '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-      $locationProvider.html5Mode(true);
-      $routeProvider.when('/:from/:to', {
-        templateUrl: app.base.concat('page.html'),
-        controller: 'PageController'
-      }).otherwise({
-        redirectTo: '/startsida'
-      });
+  app.directive("application", function() {
+    var directive;
+    directive = {};
+    directive.restrict = "E";
+    directive.templateUrl = app.base.concat("application.html");
+    directive.controller = "ApplicationController";
+    return directive;
+  });
+
+  app.factory('Nodes', [
+    '$resource', function($resource) {
+      return $resource(app.api.concat("nodes/:query"));
     }
   ]);
 
-  app.factory('Menu', [
+  app.factory('Routes', [
     '$resource', function($resource) {
-      return $resource(app.api.concat("menu.json"));
+      return $resource(app.api.concat("route/:from/:to"));
     }
   ]);
 
-  app.factory('Page', [
-    '$resource', function($resource) {
-      return $resource(app.api.concat("page/:slug.json"));
+  app.controller('ApplicationController', [
+    '$scope', function($scope) {
+      return console.log('appcontroller started');
     }
   ]);
 

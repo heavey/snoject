@@ -1,0 +1,58 @@
+@import url('//fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic')
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
+
+*
+  -webkit-transition: all 0.5s
+  -moz-transition: all 0.5s
+  -ms-transition: all 0.5s
+  -o-transition: all 0.5s
+  transition: all 0.5s
+
+body
+  font-family: "Arvo", sans-serif
+  font-weight: 400
+  margin: 0
+  font-size: 14px
+  background: url("../gfx/sv.jpg") no-repeat fixed center
+  background-size: cover
+
+a
+  text-decoration: none
+
+body
+  display: flex
+  align-items: center
+  justify-content: center
+
+#application
+  width: 900px
+  margin: 50px auto
+  height: 400px
+
+.clear
+  clear: both
+
+.fa
+  display: inline-block
+  font: normal normal normal 14px/1 FontAwesome
+  font-size: inherit
+  text-rendering: auto
+  -webkit-font-smoothing: antialiased
+
+.ng-enter
+  transition: all 1s
+  height: 0 !important
+  opacity: 0 !important
+
+.ng-enter-active
+  transition: all 1s
+  height: auto !important
+  opacity: 1 !important
+
+.ng-leave-active
+  transition: none
+  height: 0 !important
+  opacity: 0 !important
+
+.ng-hide
+  transition: none

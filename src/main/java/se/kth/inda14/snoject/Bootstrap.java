@@ -66,7 +66,7 @@ public class Bootstrap
     {
 		GraphSearch gs = new GraphSearch();
         
-		staticFileLocation("target/classes/web/");
+		staticFileLocation("/web");
 
 		get("/api/nodes/", (req, res) -> "{}");
 		get("/api/route/", (req, res) -> "{}");

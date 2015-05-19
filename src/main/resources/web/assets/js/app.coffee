@@ -1,35 +1,33 @@
-app = angular.module 'AECM', ['ngRoute', 'ngResource', 'ngProgress', 'ngAnimate']
+app = angular.module 'RoutePlanner', ['ngResource', 'ngProgress', 'ngAnimate']
 app.base = "/assets/templates/"
 app.api = "/api/"
 
 
-# Routes
-app.config ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) ->
+# Directives
+app.directive "application", () ->
 
-  $locationProvider.html5Mode true
-
-  $routeProvider
-    .when '/:from/:to',
-      templateUrl: app.base.concat 'page.html'
-      controller: 'PageController'
-    .otherwise
-      redirectTo: '/startsida'
-
-  return
-]
+  directive = {}
+  directive.restrict = "E"
+  directive.templateUrl = app.base.concat "application.html"
+  directive.controller = "ApplicationController"
+  return directive
 
 
 # Factories
-app.factory 'Menu', ['$resource', ($resource) ->
-  return $resource app.api.concat "menu.json"
+app.factory 'Nodes', ['$resource', ($resource) ->
+  return $resource app.api.concat "nodes/:query"
 ]
 
-app.factory 'Page', ['$resource', ($resource) ->
-  return $resource app.api.concat "page/:slug.json"
+app.factory 'Routes', ['$resource', ($resource) ->
+  return $resource app.api.concat "route/:from/:to"
 ]
 
 
 # Controllers
+app.controller 'ApplicationController', ['$scope', ($scope) ->
+	console.log 'appcontroller started'
+]
+
 app.controller 'HeaderController', ['$scope', '$window', ($scope, $window) ->
 
   $scope.site = $window.site
