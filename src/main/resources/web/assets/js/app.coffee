@@ -1,6 +1,4 @@
 app = angular.module 'RoutePlanner', ['ngProgress', 'ngAnimate']
-app.base = "/assets/templates/"
-app.api = "/api/"
 
 
 # Directives
@@ -8,17 +6,13 @@ app.directive "application", () ->
 
   directive = {}
   directive.restrict = "E"
-  directive.templateUrl = app.base.concat "application.html"
+  directive.templateUrl = "/assets/templates/application.html"
   directive.controller = "ApplicationController"
   return directive
 
 
 # Controllers
-app.controller 'ApplicationController', ['$scope', ($scope) ->
-	console.log 'appcontroller started'
-]
-
-app.controller 'SearchController', ['$scope', '$http', 'ngProgress', ($scope, $http, ngProgress) ->
+app.controller 'ApplicationController', ['$scope', '$http', 'ngProgress', ($scope, $http, ngProgress) ->
 
 	ngProgress.height('6px')
 	ngProgress.color('#FFBB00')
@@ -48,34 +42,29 @@ app.controller 'SearchController', ['$scope', '$http', 'ngProgress', ($scope, $h
 
 	$scope.performSearch = ->
 		if not $scope.from? or not $scope.to?
-			alert('lol')
+			alert('Du måste specificera både start- och slutdestination.')
 			return
 
 		ngProgress.start()
 
 		$http.get('/api/route/' + $scope.from + '/' + $scope.to).then((response) ->
-			console.log response
-			$scope.results = response.data
-			$scope.resultsAvailable = true
+			$scope.errorAvailable = false
+			$scope.resultsAvailable = false
+
+			if response.data.error?
+				$scope.errorAvailable = true
+				$scope.error = response.data.error
+
+				switch response.data.error
+					when "RouteNotFound" then $scope.errorMsg = "Ingen resväg hittades mellan de valda destinationerna."
+					when "StationsNotInDataStore" then $scope.errorMsg = "Ogiltig start- eller slutdestination."
+					when "MustChooseRoute" then $scope.errorMsg = "Start- och slutdestination måste vara skilda."
+					else $scope.errorMsg = "Tekniskt fel, kontakta systemadministratören."
+
+			if response.data.response?
+				$scope.results = response.data
+				$scope.resultsAvailable = true
+
 			ngProgress.complete()
 		)
-]
-
-app.controller 'NavigationController', ['$scope', '$location', 'Menu', ($scope, $location, Menu) ->
-
-  $scope.mobileNav = false
-
-  Menu.get {}, (data) ->
-    $scope.menu = data.menu
-
-  $scope.isActive = (route) ->
-    return route is $location.path()
-
-  $scope.toggleMobileNav = ->
-    $scope.mobileNav = !$scope.mobileNav
-
-  $scope.hideMobileNav = ->
-    $scope.mobileNav = false
-
-  return
 ]

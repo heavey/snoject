@@ -4,26 +4,16 @@
 
   app = angular.module('RoutePlanner', ['ngProgress', 'ngAnimate']);
 
-  app.base = "/assets/templates/";
-
-  app.api = "/api/";
-
   app.directive("application", function() {
     var directive;
     directive = {};
     directive.restrict = "E";
-    directive.templateUrl = app.base.concat("application.html");
+    directive.templateUrl = "/assets/templates/application.html";
     directive.controller = "ApplicationController";
     return directive;
   });
 
   app.controller('ApplicationController', [
-    '$scope', function($scope) {
-      return console.log('appcontroller started');
-    }
-  ]);
-
-  app.controller('SearchController', [
     '$scope', '$http', 'ngProgress', function($scope, $http, ngProgress) {
       ngProgress.height('6px');
       ngProgress.color('#FFBB00');
@@ -52,34 +42,36 @@
       };
       return $scope.performSearch = function() {
         if (($scope.from == null) || ($scope.to == null)) {
-          alert('lol');
+          alert('Du måste specificera både start- och slutdestination.');
           return;
         }
         ngProgress.start();
         return $http.get('/api/route/' + $scope.from + '/' + $scope.to).then(function(response) {
-          console.log(response);
-          $scope.results = response.data;
-          $scope.resultsAvailable = true;
+          $scope.errorAvailable = false;
+          $scope.resultsAvailable = false;
+          if (response.data.error != null) {
+            $scope.errorAvailable = true;
+            $scope.error = response.data.error;
+            switch (response.data.error) {
+              case "RouteNotFound":
+                $scope.errorMsg = "Ingen resväg hittades mellan de valda destinationerna.";
+                break;
+              case "StationsNotInDataStore":
+                $scope.errorMsg = "Ogiltig start- eller slutdestination.";
+                break;
+              case "MustChooseRoute":
+                $scope.errorMsg = "Start- och slutdestination måste vara skilda.";
+                break;
+              default:
+                $scope.errorMsg = "Tekniskt fel, kontakta systemadministratören.";
+            }
+          }
+          if (response.data.response != null) {
+            $scope.results = response.data;
+            $scope.resultsAvailable = true;
+          }
           return ngProgress.complete();
         });
-      };
-    }
-  ]);
-
-  app.controller('NavigationController', [
-    '$scope', '$location', 'Menu', function($scope, $location, Menu) {
-      $scope.mobileNav = false;
-      Menu.get({}, function(data) {
-        return $scope.menu = data.menu;
-      });
-      $scope.isActive = function(route) {
-        return route === $location.path();
-      };
-      $scope.toggleMobileNav = function() {
-        return $scope.mobileNav = !$scope.mobileNav;
-      };
-      $scope.hideMobileNav = function() {
-        return $scope.mobileNav = false;
       };
     }
   ]);

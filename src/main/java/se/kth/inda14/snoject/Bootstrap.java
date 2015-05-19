@@ -72,13 +72,13 @@ public class Bootstrap
 		exception(RouteNotFoundException.class, ((e, req, res) -> {
 			res.type("application/json;charset=utf8");
 			res.status(200);
-			res.body("{error: \"" + e.getMessage() + "\"}");
+			res.body("{\"error\": \"" + e.getMessage() + "\"}");
 		}));
 
 		exception(IllegalArgumentException.class, ((e, req, res) -> {
 			res.type("application/json;charset=utf8");
 			res.status(200);
-			res.body("{error: \"" + e.getMessage() + "\"}");
+			res.body("{\"error\": \"" + e.getMessage() + "\"}");
 		}));
 
 		get("/api/nodes/", (req, res) -> "{}");

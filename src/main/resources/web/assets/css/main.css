@@ -52,19 +52,19 @@ a {
 .clear {
   clear: both; }
 
-.fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased; }
+#error {
+  text-align: center;
+  padding: 25px;
+  color: #777; }
+  #error h2 {
+    color: #690000; }
 
-.ng-enter {
+.ng-enter, .ng-hide-remove {
   transition: all 1s;
   height: 0 !important;
   opacity: 0 !important; }
 
-.ng-enter-active {
+.ng-enter-active, .ng-hide-remove-active {
   transition: all 1s;
   height: auto !important;
   opacity: 1 !important; }
@@ -74,5 +74,5 @@ a {
   height: 0 !important;
   opacity: 0 !important; }
 
-.ng-hide {
+.ng-hide, .ng-hide-add, .ng-hide-add-active {
   transition: none; }
