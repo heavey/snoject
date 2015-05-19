@@ -2,7 +2,7 @@
 (function() {
   var app;
 
-  app = angular.module('RoutePlanner', ['ngResource', 'ngProgress', 'ngAnimate']);
+  app = angular.module('RoutePlanner', ['ngProgress', 'ngAnimate']);
 
   app.base = "/assets/templates/";
 
@@ -17,27 +17,52 @@
     return directive;
   });
 
-  app.factory('Nodes', [
-    '$resource', function($resource) {
-      return $resource(app.api.concat("nodes/:query"));
-    }
-  ]);
-
-  app.factory('Routes', [
-    '$resource', function($resource) {
-      return $resource(app.api.concat("route/:from/:to"));
-    }
-  ]);
-
   app.controller('ApplicationController', [
     '$scope', function($scope) {
       return console.log('appcontroller started');
     }
   ]);
 
-  app.controller('HeaderController', [
-    '$scope', '$window', function($scope, $window) {
-      return $scope.site = $window.site;
+  app.controller('SearchController', [
+    '$scope', '$http', 'ngProgress', function($scope, $http, ngProgress) {
+      ngProgress.height('6px');
+      ngProgress.color('#FFBB00');
+      $scope.getLocationFrom = function(val) {
+        $scope.listVisibleFrom = val ? true : false;
+        return $scope.getLocation(val);
+      };
+      $scope.getLocationTo = function(val) {
+        $scope.listVisibleTo = val ? true : false;
+        return $scope.getLocation(val);
+      };
+      $scope.getLocation = function(val) {
+        return $http.get('/api/nodes/' + val).then(function(response) {
+          return $scope.list = response.data;
+        });
+      };
+      $scope.setFrom = function(item) {
+        $scope.listVisibleFrom = false;
+        $scope.from = item.id;
+        return $scope.fromStation = item.name;
+      };
+      $scope.setTo = function(item) {
+        $scope.listVisibleTo = false;
+        $scope.to = item.id;
+        return $scope.toStation = item.name;
+      };
+      return $scope.performSearch = function() {
+        if (($scope.from == null) || ($scope.to == null)) {
+          alert('lol');
+          return;
+        }
+        ngProgress.start();
+        return $http.get('/api/route/' + $scope.from + '/' + $scope.to).then(function(response) {
+          console.log(response);
+          $scope.results = response.data;
+          $scope.resultsAvailable = true;
+          return ngProgress.complete();
+        });
+      };
     }
   ]);
 
@@ -56,39 +81,6 @@
       $scope.hideMobileNav = function() {
         return $scope.mobileNav = false;
       };
-    }
-  ]);
-
-  app.controller('PageController', [
-    '$scope', '$routeParams', '$sce', 'ngProgress', 'Page', '$window', function($scope, $routeParams, $sce, ngProgress, Page, $window) {
-      ngProgress.height('4px');
-      ngProgress.color($window.site.color);
-      ngProgress.start();
-      Page.get({
-        slug: $routeParams.slug
-      }, function(data) {
-        var d, i, _i, _len, _ref;
-        $scope.page = data.page[0];
-        $scope.content = [];
-        _ref = data.content;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          d = _ref[i];
-          $scope.content[i] = [];
-          $scope.content[i]["content"] = $sce.trustAsHtml(data.content[i]["content"]);
-          $scope.content[i]["image"] = data.content[i]["image"];
-        }
-        $scope.excerpt = $sce.trustAsHtml(data.page[0]["excerpt"]);
-        return ngProgress.complete();
-      }, function(error) {
-        console.log(error);
-        ngProgress.color('#d30000');
-        ngProgress.set(99);
-        $scope.page = {
-          "id": 0,
-          "title": "404"
-        };
-        return $scope.content = $sce.trustAsHtml("<h3>The requested page could not be found.</h3>");
-      });
     }
   ]);
 

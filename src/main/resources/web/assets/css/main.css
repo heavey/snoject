@@ -1,32 +1,53 @@
-@import url('//fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic');
+@import url('//fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
 * {
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s; }
+  -webkit-transition: all 0.25s;
+  -moz-transition: all 0.25s;
+  -ms-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s; }
 
 body {
-  font-family: "Arvo", sans-serif;
-  font-weight: 400;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: 300;
   margin: 0;
   font-size: 14px;
   background: url("../gfx/sv.jpg") no-repeat fixed center;
   background-size: cover; }
 
+#application {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; }
+
+#logo h2 {
+  font-weight: 600;
+  display: inline-block; }
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important; }
+
 a {
   text-decoration: none; }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center; }
+.autocomplete {
+  display: inline-block !important;
+  width: 90% !important;
+  left: 15px !important; }
 
-#application {
-  width: 900px;
-  margin: 50px auto;
-  height: 400px; }
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+  background: #243b57;
+  color: #ffffff; }
+
+.container {
+  width: 730px !important;
+  background: url("../gfx/sv_box.jpg") no-repeat center;
+  background-size: 100vw auto;
+  border-radius: 7px;
+  box-shadow: 0 2px 25px rgba(0, 0, 0, 0.25);
+  padding: 20px; }
 
 .clear {
   clear: both; }

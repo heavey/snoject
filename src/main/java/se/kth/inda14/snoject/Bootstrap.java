@@ -4,6 +4,7 @@ import se.kth.inda14.snoject.datasources.XMLDataSource;
 import se.kth.inda14.snoject.engine.Edge;
 import se.kth.inda14.snoject.engine.GraphSearch;
 import se.kth.inda14.snoject.engine.Node;
+import se.kth.inda14.snoject.engine.RouteNotFoundException;
 import se.kth.inda14.snoject.graphs.HashGraph;
 import se.kth.inda14.snoject.interfaces.DataSource;
 import se.kth.inda14.snoject.interfaces.Graph;
@@ -62,11 +63,23 @@ public class Bootstrap
 		return this;
     }
 
-    public Bootstrap startServer()
+    public Bootstrap startServer() throws RouteNotFoundException
     {
 		GraphSearch gs = new GraphSearch();
         
 		staticFileLocation("/web");
+
+		exception(RouteNotFoundException.class, ((e, req, res) -> {
+			res.type("application/json;charset=utf8");
+			res.status(200);
+			res.body("{error: \"" + e.getMessage() + "\"}");
+		}));
+
+		exception(IllegalArgumentException.class, ((e, req, res) -> {
+			res.type("application/json;charset=utf8");
+			res.status(200);
+			res.body("{error: \"" + e.getMessage() + "\"}");
+		}));
 
 		get("/api/nodes/", (req, res) -> "{}");
 		get("/api/route/", (req, res) -> "{}");
@@ -78,7 +91,6 @@ public class Bootstrap
 				gs.getRoutes(g, nodes, req.params(":from"), req.params(":to"))), json());
 
         after(((req, res) -> res.type("application/json;charset=utf8")));
-		exception(Exception.class, ((e, req, res) -> e.getMessage()));
 
         return this;
     }

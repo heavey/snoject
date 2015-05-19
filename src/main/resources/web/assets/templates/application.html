@@ -1,19 +1,76 @@
-<div id="application">
-    <div id="container">
+<div id="application" ng-animate-children>
+    <div class="container">
 
-        <div id="logo"></div>
+        <div class="text-center">
+            <small class="text-uppercase">Årets Reseplanerare 2k15</small>
+        </div>
 
-        <div ng-animate-children>
-            <div ng-view class="view-animate"></div>
+        <hr />
+
+        <div id="logo">
+            <div class="row">
+                <div class="col-md-5 text-right">
+                    <h2>För Sverige</h2>
+                </div>
+                <div class="col-md-2">
+                    <img src="/assets/gfx/logo.png" width="100" />
+                </div>
+                <div class="col-md-5 text-left">
+                    <h2>i tid<span style="font-weight: 300">(en)</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="nodeSelector" ng-controller="SearchController">
+            <div class="row form-inline">
+                <div class="col-md-5">
+                    <div class="form-group form-group-lg">
+                        <div class="input-group">
+                            <div class="input-group-addon">Från:</div>
+                            <input type="text" class="form-control" id="from" ng-model="fromStation" ng-change="getLocationFrom(fromStation)" placeholder="Hållplats" />
+                        </div>
+                        <div ng-show="listVisibleFrom">
+                            <ul class="dropdown-menu autocomplete">
+                                <li ng-repeat="item in list.response">
+                                    <a ng-click="setFrom(item)" href="#">{{ item.name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group form-group-lg">
+                        <div class="input-group">
+                            <div class="input-group-addon">Till:</div>
+                            <input type="text" class="form-control" id="to" ng-model="toStation" ng-change="getLocationTo(toStation)" placeholder="Hållplats" />
+                        </div>
+                        <div ng-show="listVisibleTo">
+                            <ul class="dropdown-menu autocomplete">
+                                <li ng-repeat="item in list.response">
+                                    <a ng-click="setTo(item)" href="#">{{ item.name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group form-group-lg">
+                        <button type="submit" ng-click="performSearch()" class="btn btn-lg btn-primary">Sök</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div ng-show="resultsAvailable">
+                {{ results }}
+            </div>
+
         </div>
 
         <div class="clear"></div>
-
-        <footer ng-controller="HeaderController">
-            <div class="contain">
-                {{ site.footer }}
-            </div>
-        </footer>
 
     </div>
 
