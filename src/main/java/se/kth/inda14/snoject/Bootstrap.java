@@ -66,7 +66,7 @@ public class Bootstrap
 		GraphSearch gs = new GraphSearch();
 
 		// Set up Server options and exception handling
-		int port = (System.getenv("PORT").isEmpty()) ? 4567 : Integer.parseInt(System.getenv("PORT"));
+		int port = (System.getenv("PORT") == null) ? 4567 : Integer.parseInt(System.getenv("PORT"));
 		port(port);
 		staticFileLocation("/web");
 
