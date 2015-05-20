@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Represents an arbitrary Graph data source.
+ * Represents a Graph data source.
  *
  * Data sources first connect, load or initialize using the init()
  * method. Nodes, Edges and Providers can then be accessed.

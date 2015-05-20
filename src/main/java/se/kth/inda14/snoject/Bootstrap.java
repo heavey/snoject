@@ -13,9 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static se.kth.inda14.snoject.engine.JSONUtil.json;
-import static spark.Spark.after;
-import static spark.Spark.exception;
-import static spark.Spark.get;
+import static spark.Spark.*;
 import static spark.SparkBase.staticFileLocation;
 
 public class Bootstrap
@@ -66,7 +64,10 @@ public class Bootstrap
     public Bootstrap startServer() throws RouteNotFoundException
     {
 		GraphSearch gs = new GraphSearch();
-        
+
+		// Set up Server options and exception handling
+		int port = (System.getenv("PORT").isEmpty()) ? 4567 : Integer.parseInt(System.getenv("PORT"));
+		port(port);
 		staticFileLocation("/web");
 
 		exception(RouteNotFoundException.class, ((e, req, res) -> {
@@ -81,6 +82,7 @@ public class Bootstrap
 			res.body("{\"error\": \"" + e.getMessage() + "\"}");
 		}));
 
+		// Set up routes
 		get("/api/nodes/", (req, res) -> "{}");
 		get("/api/route/", (req, res) -> "{}");
 

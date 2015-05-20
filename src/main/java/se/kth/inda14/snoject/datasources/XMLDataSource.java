@@ -18,7 +18,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: Documentation
+/**
+ * Uses the Java Standard Library DocumentBuilder classes to parse
+ * properly formatted XML files into Node, Edge and Provider objects.
+ *
+ * {@inheritDoc DataSource}
+ */
 public class XMLDataSource implements DataSource
 {
     private Document doc;
@@ -26,6 +31,9 @@ public class XMLDataSource implements DataSource
     private Set<Edge> edgeCache;
     private Map<Integer, Provider> providerCache;
 
+	/**
+	 * {@inheritDoc DataSource}
+	 */
     public void init() throws Exception
     {
         Path xml = FileSystems.getDefault().getPath("target/classes/graph.xml");
@@ -35,6 +43,9 @@ public class XMLDataSource implements DataSource
         doc = db.parse(Files.newInputStream(xml));
     }
 
+	/**
+	 * {@inheritDoc DataSource}
+	 */
     public Map<Integer, Node> getNodes()
     {
         if (nodeCache != null)
@@ -58,6 +69,9 @@ public class XMLDataSource implements DataSource
         return res;
     }
 
+	/**
+	 * {@inheritDoc DataSource}
+	 */
     public Set<Edge> getEdges()
     {
         if (edgeCache != null)
@@ -92,6 +106,9 @@ public class XMLDataSource implements DataSource
         return res;
     }
 
+	/**
+	 * {@inheritDoc DataSource}
+	 */
     public Map<Integer, Provider> getProviders()
     {
         if (providerCache != null)
