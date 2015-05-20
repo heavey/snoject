@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* Bootstrap
+web:    java -cp target/classes:target/dependency/* se.kth.inda14.snoject.Bootstrap
