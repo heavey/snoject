@@ -17,6 +17,7 @@
     '$scope', '$http', 'ngProgress', function($scope, $http, ngProgress) {
       ngProgress.height('6px');
       ngProgress.color('#FFBB00');
+      $scope.containerClass = "search";
       $scope.getLocationFrom = function(val) {
         $scope.listVisibleFrom = val ? true : false;
         return $scope.getLocation(val);
@@ -52,6 +53,7 @@
           if (response.data.error != null) {
             $scope.errorAvailable = true;
             $scope.error = response.data.error;
+            $scope.containerClass = "error";
             switch (response.data.error) {
               case "RouteNotFound":
                 $scope.errorMsg = "Ingen resväg hittades mellan de valda destinationerna.";
@@ -69,18 +71,19 @@
           if (response.data.response != null) {
             $scope.results = response.data;
             $scope.resultsAvailable = true;
+            $scope.containerClass = "results";
           }
           return ngProgress.complete();
         });
       };
-      $scope.getCostString = function(cost) {
+      $scope.getCostClass = function(cost) {
         switch (cost) {
           case -1:
-            return "Låg";
+            return "text-success";
           case 0:
-            return "Medelhög";
+            return "text-warning";
           case 1:
-            return "Mycket hög";
+            return "text-danger";
         }
       };
       return $scope.showRouteType = 'TIME';

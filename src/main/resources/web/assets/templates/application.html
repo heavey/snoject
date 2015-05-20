@@ -1,5 +1,5 @@
-<div id="application" ng-animate-children>
-    <div class="container" ng-animate-children>
+<div id="application" ng-class="containerClass" ng-animate-children>
+    <div class="container">
 
         <div class="text-center">
             <small class="text-uppercase">Årets Reseplanerare 2k15</small>
@@ -29,7 +29,8 @@
                     <div class="form-group form-group-lg">
                         <div class="input-group">
                             <div class="input-group-addon">Från:</div>
-                            <input type="text" class="form-control" id="from" ng-model="fromStation" ng-change="getLocationFrom(fromStation)" placeholder="Hållplats" />
+                            <input type="text" class="form-control" id="from" ng-model="fromStation"
+                                   ng-change="getLocationFrom(fromStation)" placeholder="Hållplats" />
                         </div>
                         <div ng-show="listVisibleFrom">
                             <ul class="dropdown-menu autocomplete">
@@ -44,7 +45,8 @@
                     <div class="form-group form-group-lg">
                         <div class="input-group">
                             <div class="input-group-addon">Till:</div>
-                            <input type="text" class="form-control" id="to" ng-model="toStation" ng-change="getLocationTo(toStation)" placeholder="Hållplats" />
+                            <input type="text" class="form-control" id="to" ng-model="toStation"
+                                   ng-change="getLocationTo(toStation)" placeholder="Hållplats" />
                         </div>
                         <div ng-show="listVisibleTo">
                             <ul class="dropdown-menu autocomplete">
@@ -97,15 +99,15 @@
                             <div class="meta">
                                 <ul>
                                     <li>
-                                        <span class="glyphicon glyphicon-time"></span>
-                                        {{ item.time }} min
+                                        <span class="glyphicon glyphicon-time"></span> &nbsp;
+                                        {{ item.time }} minuter
                                     </li>
                                     <li>
-                                        <span class="glyphicon glyphicon-usd"></span>
-                                        {{ item.cost }} SEK
+                                        <span class="glyphicon glyphicon-usd"></span> &nbsp;
+                                        {{ item.cost }} SEK exkl. moms
                                     </li>
                                     <li>
-                                        <span class="glyphicon glyphicon-leaf"></span>
+                                        <span class="glyphicon glyphicon-leaf"></span> &nbsp;
                                         {{ item.environment }} g CO<sub>2</sub>
                                     </li>
                                     <li class="clear"></li>
@@ -113,24 +115,24 @@
                             </div>
                             <div class="clear"></div>
                             <div class="provider">
+                                <p class="provider-name">Om {{ item.provider.name }}:</p>
                                 <div class="provider-body">
-                                    <p class="provider-name">Om {{ item.provider.name }}:</p>
                                     <p class="provider-description">{{ item.provider.description }}</p>
                                 </div>
                                 <div class="provider-meta">
-                                    <p>
-                                        <span>Tidsåtgång:</span>
-                                        <strong ng-bind="getCostString(item.provider.time)"></strong>
-                                    </p>
-                                    <p>
-                                        <span>Kostnad:</span>
-                                        <strong ng-bind="getCostString(item.provider.cost)"></strong>
-                                    </p>
-                                    <p>
-                                        <span>Miljöpåverkan:</span>
-                                        <strong ng-bind="getCostString(item.provider.environment)"></strong>
-                                    </p>
+                                    <ul>
+                                        <li ng-class="getCostClass(item.provider.time)" class="text-right">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </li>
+                                        <li ng-class="getCostClass(item.provider.cost)" class="text-center">
+                                            <span class="glyphicon glyphicon-usd"></span>
+                                        </li>
+                                        <li ng-class="getCostClass(item.provider.environment)" class="text-left">
+                                            <span class="glyphicon glyphicon-leaf"></span>
+                                        </li>
+                                    </ul>
                                 </div>
+                                <div class="clear"></div>
                             </div>
                         </li>
                     </ul>
@@ -144,7 +146,5 @@
         </div>
 
         <div class="clear"></div>
-
     </div>
-
 </div>

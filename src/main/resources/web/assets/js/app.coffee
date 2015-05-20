@@ -16,6 +16,7 @@ app.controller 'ApplicationController', ['$scope', '$http', 'ngProgress', ($scop
 
 	ngProgress.height('6px')
 	ngProgress.color('#FFBB00')
+	$scope.containerClass = "search"
 
 	$scope.getLocationFrom = (val) ->
 		$scope.listVisibleFrom = if val then true else false
@@ -54,6 +55,7 @@ app.controller 'ApplicationController', ['$scope', '$http', 'ngProgress', ($scop
 			if response.data.error?
 				$scope.errorAvailable = true
 				$scope.error = response.data.error
+				$scope.containerClass = "error"
 
 				switch response.data.error
 					when "RouteNotFound" then $scope.errorMsg = "Ingen resväg hittades mellan de valda destinationerna."
@@ -64,15 +66,16 @@ app.controller 'ApplicationController', ['$scope', '$http', 'ngProgress', ($scop
 			if response.data.response?
 				$scope.results = response.data
 				$scope.resultsAvailable = true
+				$scope.containerClass = "results"
 
 			ngProgress.complete()
 		)
 
-	$scope.getCostString = (cost) ->
+	$scope.getCostClass = (cost) ->
 		switch cost
-			when -1 then return "Låg"
-			when 0 then return "Medelhög"
-			when 1 then return "Mycket hög"
+			when -1 then return "text-success"
+			when 0 then return "text-warning"
+			when 1 then return "text-danger"
 
 	# Default views
 	$scope.showRouteType = 'TIME'
