@@ -1,23 +1,67 @@
 <graph>
     <nodes>
-        <node id="1" name="Arlanda Flygplats"/>
-        <node id="2" name="Bromma Flygplats"/>
-        <node id="3" name="Sagerska Palatset"/>
-        <node id="4" name="Plenissalen"/>
-        <node id="5" name="Regeringskansliet"/>
-        <node id="6" name="LO-borgen"/>
-        <node id="7" name="Agendastudion på SVT"/>
-        <node id="8" name="DN-skrapan"/>
-        <node id="9" name="Drottningholms slott"/>
+        <node id="1" name="Arlanda Flygplats" />
+        <node id="2" name="Bromma Flygplats" />
+        <node id="3" name="Sagerska Palatset" />
+        <node id="4" name="Plenissalen" />
+        <node id="5" name="Regeringskansliet" />
+        <node id="6" name="LO-borgen" />
+        <node id="7" name="Agendastudion på SVT" />
+        <node id="8" name="Gabriel Wikströms lekrum" />
+        <node id="9" name="Drottningholms slott" />
+        <node id="10" name="Riksdagshuset (entrén)" />
+        <node id="11" name="Riksdagshuset (taket)" />
+        <node id="12" name="Stockholms Centralstation" />
     </nodes>
     <edges>
+        <!-- Fridolinjen -->
         <edge from="1" to="2" name="Fridolinjen Arlanda-Bromma" provider="1" time="10" cost="125000" environment="220000" />
         <edge from="2" to="1" name="Fridolinjen Bromma-Arlanda" provider="1" time="10" cost="125000" environment="220000" />
-        <edge from="2" to="3" name="Taxi 020 Bromma-Sagerska" provider="3" time="35" cost="500" environment="400" />
-        <edge from="2" to="5" name="Taxi 020 Bromma-Regeringen" provider="3" time="40" cost="550" environment="425" />
-        <edge from="3" to="5" name="Promenad till kansliet" provider="2" time="15" cost="0" environment="0" />
-        <edge from="3" to="5" name="Taxi 020 Sagerska-Kansliet" provider="3" time="5" cost="150" environment="50" />
-        <edge from="3" to="4" name="Promenad i innerstan" provider="2" time="15" cost="0" environment="0" />
+
+        <!-- Taxi 020 från Centralen till Bromma, Arlanda, SVT -->
+        <edge from="12" to="2" name="Taxi 020" provider="3" time="40" cost="550" environment="425" />
+        <edge from="12" to="1" name="Taxi 020" provider="3" time="45" cost="600" environment="450" />
+        <edge from="12" to="7" name="Taxi 020" provider="3" time="25" cost="325" environment="310" />
+        <!-- Taxi 020 till Centralen från Bromma, Arlanda, SVT -->
+        <edge from="2" to="12" name="Taxi 020" provider="3" time="35" cost="500" environment="400" />
+        <edge from="1" to="12" name="Taxi 020" provider="3" time="45" cost="600" environment="450" />
+        <edge from="7" to="12" name="Taxi 020" provider="3" time="25" cost="325" environment="310" />
+        <!-- Taxi 020 Centralen-Sagerska -->
+        <edge from="12" to="3" name="Taxi 020" provider="3" time="10" cost="175" environment="65" />
+        <edge from="3" to="12" name="Taxi 020" provider="3" time="10" cost="175" environment="65" />
+        <!-- Taxi 020 LO-Centralen -->
+        <edge from="6" to="12" name="Taxi 020" provider="3" time="10" cost="165" environment="60" />
+
+        <!-- Promenad Sagerska-Regeringskansliet -->
+        <edge from="3" to="5" name="Promenad längs Norrström" provider="2" time="15" cost="0" environment="0" />
+        <edge from="5" to="3" name="Promenad längs Norrström" provider="2" time="15" cost="0" environment="0" />
+        <!-- Promenad Riksdagshuset-Plenissalen -->
+        <edge from="10" to="4" name="Promenad längs maktens korridorer" provider="2" time="10" cost="0" environment="0" />
+        <edge from="4" to="10" name="Promenad längs maktens korridorer" provider="2" time="10" cost="0" environment="0" />
+        <!-- Promenad Riksdagen entre-tak -->
+        <edge from="10" to="11" name="Brandtrappan" provider="2" time="5" cost="0" environment="0" />
+        <edge from="11" to="10" name="Brandtrappan" provider="2" time="5" cost="0" environment="0" />
+        <!-- Promenad Sagerska-Riksdagsentren -->
+        <edge from="3" to="10" name="Promenad över Riksbron" provider="2" time="10" cost="0" environment="0" />
+        <edge from="10" to="3" name="Promenad över Riksbron" provider="2" time="10" cost="0" environment="0" />
+
+        <!-- Segway Sagerska-Kansliet -->
+        <edge from="3" to="5" name="Segway längs Norrström" provider="5" time="2" cost="250" environment="0" />
+        <edge from="5" to="3" name="Segway längs Norrström" provider="5" time="2" cost="250" environment="0" />
+        <!-- Segway Sagerska-Riksdagsentren -->
+        <edge from="3" to="10" name="Segway över Riksbron" provider="5" time="2" cost="250" environment="0" />
+        <edge from="10" to="3" name="Segway över Riksbron" provider="5" time="2" cost="250" environment="0" />
+
+        <!-- Segway Arlanda-Bromma -->
+        <edge from="1" to="2" name="Living on the Edge of E4:an" provider="5" time="270" cost="7500" environment="20" />
+        <edge from="2" to="1" name="Living on the Edge of E4:an" provider="5" time="270" cost="7500" environment="20" />
+
+        <!-- Innovationskatapulten -->
+        <edge from="11" to="6" name="Innovationskatapulten till LO" provider="7" cost="175000" time="1" environment="51000" />
+
+        <!-- SL-buss Centralen-Arlanda -->
+        <edge from="1" to="12" name="Buss 538, 520, 607, 59" provider="4" time="180" cost="175" environment="50" />
+        <edge from="12" to="1" name="Buss 59, 607, 520, 538" provider="4" time="180" cost="175" environment="50" />
     </edges>
     <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->
     <providers>
@@ -37,6 +81,30 @@
             <description>
                 Känn dig som en riktigt viktig förvaltare med detta agila färdmedel.
                 Låt inte prisbilden avskräcka dig från tidseffektiv komfort. Garanterad etanolbil.
+            </description>
+        </provider>
+        <provider id="4" name="SL-buss" cost="0" time="1" environment="-1">
+            <description>
+                Upplev känslan hos Verklighetens Folk™ med denna moderna tappning av pöbelns droska.
+                Se upp för klibbande kostym, ett vanligt nybörjarmisstag när Air Condition saknas.
+            </description>
+        </provider>
+        <provider id="5" name="Segway" cost="1" time="-1" environment="-1">
+            <description>
+                Detta "science fiction i verkligheten"-transportmedel har hyllats av ingen mindre än
+                framtidsministern själv. Susa fram mellan stadens lattepappor med detta inverterade vindkraftverk.
+            </description>
+        </provider>
+        <provider id="6" name="Flygbusssarna" cost="0" time="0" environment="-1">
+            <description>
+                Sitt komfortabelt på mjuka plyschsäten i detta Svennens favoritfärdmedel.
+                Varning för Hepatit A-Z, ett vanligt förekommande spektra bland hemvändande från orienten.
+            </description>
+        </provider>
+        <provider id="7" name="Innovationskatapulten by Stefan" cost="1" time="-1" environment="-1">
+            <description>
+                I all sin prakt på Riksdagshusets tak finns detta praktbygge. Administrativa kostnader har drivit
+                upp priserna, men det är ju inte ditt problem. Se upp för Åsas vindkraftverk under färden.
             </description>
         </provider>
     </providers>
