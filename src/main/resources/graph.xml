@@ -57,11 +57,19 @@
         <edge from="2" to="1" name="Living on the Edge of E4:an" provider="5" time="270" cost="7500" environment="20" />
 
         <!-- Innovationskatapulten -->
-        <edge from="11" to="6" name="Innovationskatapulten till LO" provider="7" cost="175000" time="1" environment="51000" />
+        <edge from="11" to="6" name="Innovationskatapulten" provider="7" cost="175000" time="1" environment="51000" />
 
         <!-- SL-buss Centralen-Arlanda -->
         <edge from="1" to="12" name="Buss 538, 520, 607, 59" provider="4" time="180" cost="175" environment="50" />
         <edge from="12" to="1" name="Buss 59, 607, 520, 538" provider="4" time="180" cost="175" environment="50" />
+
+        <!-- Flygbussarna Arlanda-Bromma -->
+        <edge from="1" to="2" name="Flygbussarna Express" provider="6" time="90" cost="150" environment="250" />
+        <edge from="2" to="1" name="Flygbussarna Express" provider="6" time="90" cost="150" environment="250" />
+
+        <!-- Flygbussarna Centralen-Arlanda -->
+        <edge from="12" to="1" name="Flygbussarna Express" provider="6" time="40" cost="99" environment="250" />
+        <edge from="1" to="12" name="Flygbussarna Express" provider="6" time="40" cost="99" environment="250" />
     </edges>
     <!-- Cost, time and environment range from -1 to 1 (low, medium, high) -->
     <providers>
@@ -103,7 +111,7 @@
         </provider>
         <provider id="7" name="Innovationskatapulten by Stefan" cost="1" time="-1" environment="-1">
             <description>
-                I all sin prakt på Riksdagshusets tak finns detta praktbygge. Administrativa kostnader har drivit
+                I all sin prakt på Riksdagshusets tak finns detta skrytbygge. Administrativa kostnader har drivit
                 upp priserna, men det är ju inte ditt problem. Se upp för Åsas vindkraftverk under färden.
             </description>
         </provider>
